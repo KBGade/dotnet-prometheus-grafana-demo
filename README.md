@@ -49,28 +49,28 @@ Grafana (visualizes dashboards)
 ---
 
 ## 📁 Project Structure
+
+```
 dotnet-prometheus-grafana-demo/
 │
-├─ src/
-│ └─ MetricsDemoApi/
+├── src/
+│ └── MetricsDemoApi/
 │
-├─ monitoring/
-│ └─ prometheus/
-│ └─ prometheus.yml
+├── monitoring/
+│ └── prometheus/
+│ └── prometheus.yml
 │
-├─ docs/
-│ └─ screenshots/
-│ ├─ grafana-dashboard.png
-│ ├─ prometheus-targets.png
-│ ├─ metrics-endpoint.png
-│ ├─ app-health-check.png
-│ └─ prometheus-query.png
+├── docs/
+│ └── screenshots/
+│ ├── grafana-dashboard.png
+│ ├── prometheus-targets.png
+│ ├── metrics-endpoint.png
+│ ├── app-health-check.png
+│ └── prometheus-query.png
 │
-├─ README.md
-└─ setup-commands.txt
-
-
----
+├── README.md
+└── setup-commands.txt
+```
 
 ## 🔌 API Endpoints
 
