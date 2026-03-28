@@ -1,4 +1,4 @@
-# .NET 8 API Observability Demo (Prometheus + Grafana)
+# .NET 8 Observability Demo using Prometheus & Grafana
 
 This project demonstrates a complete end-to-end observability setup for an ASP.NET Core (.NET 8) Web API using Prometheus and Grafana.
 
@@ -106,17 +106,33 @@ dotnet-prometheus-grafana-demo/
 ### Orders Created
 ```promql
 sum(orders_created_total)
-Failed Orders
+```
+
+### Failed Orders
+```promql
 sum(orders_failed_total)
-Request Rate
+```
+
+### Request Rate
+```promql
 sum(rate(http_requests_received_total[5m]))
-Total Requests
+```
+
+### Total Requests
+```promql
 sum(http_requests_received_total)
-Average Latency
-sum(rate(http_request_duration_seconds_sum[5m])) 
-/ 
-sum(rate(http_request_duration_seconds_count[5m]))
-Error Rate
+```
+
+### Average Latency
+```promql
+sum(rate(http_request_duration_seconds_sum[5m])) / sum(rate(http_request_duration_seconds_count[5m]))
+```
+
+### Error Rate
+```promql
+sum(rate(orders_failed_total[5m])) / sum(rate(http_requests_received_total[5m]))
+```
+---
 
 ⚙️ Setup & Run
 1. Run API
@@ -141,6 +157,8 @@ http://localhost:3000
 Add Prometheus data source:
 
 http://localhost:9090
+
+---
 
 🔄 Generate Sample Traffic
 
