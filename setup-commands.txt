@@ -1,0 +1,76 @@
+===============================
+.NET Observability Demo Setup
+===============================
+
+1. Run .NET API
+-------------------------------
+cd src/MetricsDemoApi
+dotnet restore
+dotnet run
+
+Application URL:
+http://localhost:5204
+
+Swagger:
+http://localhost:5204/swagger
+
+Metrics Endpoint:
+http://localhost:5204/metrics
+
+Health Endpoint:
+http://localhost:5204/health
+
+
+2. Run Prometheus
+-------------------------------
+Go to Prometheus folder (where prometheus.exe exists)
+
+Run command:
+prometheus.exe --config.file=prometheus.yml
+
+Prometheus UI:
+http://localhost:9090
+
+Check Targets:
+http://localhost:9090/targets
+
+
+3. Run Grafana
+-------------------------------
+Open browser:
+http://localhost:3000
+
+Default Login:
+Username: admin // admin@1234
+Password: admin // admin@1234
+
+Add Data Source:
+Type: Prometheus
+URL: http://localhost:9090
+
+
+4. Generate Sample Traffic
+-------------------------------
+Use PowerShell:
+
+Invoke-WebRequest http://localhost:5204/
+Invoke-WebRequest http://localhost:5204/api/Order/1
+Invoke-WebRequest -Method Post http://localhost:5204/orders
+Invoke-WebRequest -Method Post http://localhost:5204/orders/fail
+
+
+5. Verify Metrics
+-------------------------------
+Open:
+http://localhost:5204/metrics
+
+Check Prometheus:
+http://localhost:9090
+
+Check Grafana dashboards:
+http://localhost:3000
+
+
+===============================
+END
+===============================
