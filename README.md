@@ -28,16 +28,18 @@ It shows how to expose application metrics, monitor system behavior, and visuali
 ---
 
 ## 🧠 Architecture
-Client
-↓
-ASP.NET Core API
-↓
-/metrics endpoint
-↓
-Prometheus (scrapes metrics)
-↓
-Grafana (visualizes dashboards)
 
+```text
+Client
+  ↓
+ASP.NET Core API
+  ↓
+/metrics endpoint
+  ↓
+Prometheus (scrapes metrics)
+  ↓
+Grafana (visualizes dashboards)
+```
 
 ### Flow
 
@@ -50,27 +52,29 @@ Grafana (visualizes dashboards)
 
 ## 📁 Project Structure
 
-```
+```text
 dotnet-prometheus-grafana-demo/
 │
 ├── src/
-│ └── MetricsDemoApi/
+│   └── MetricsDemoApi/
 │
 ├── monitoring/
-│ └── prometheus/
-│ └── prometheus.yml
+│   └── prometheus/
+│       └── prometheus.yml
 │
 ├── docs/
-│ └── screenshots/
-│ ├── grafana-dashboard.png
-│ ├── prometheus-targets.png
-│ ├── metrics-endpoint.png
-│ ├── app-health-check.png
-│ └── prometheus-query.png
+│   └── screenshots/
+│       ├── grafana-dashboard.png
+│       ├── prometheus-targets.png
+│       ├── metrics-endpoint.png
+│       ├── app-health-check.png
+│       └── prometheus-query.png
 │
 ├── README.md
 └── setup-commands.txt
 ```
+
+---
 
 ## 🔌 API Endpoints
 
@@ -132,73 +136,118 @@ sum(rate(http_request_duration_seconds_sum[5m])) / sum(rate(http_request_duratio
 ```promql
 sum(rate(orders_failed_total[5m])) / sum(rate(http_requests_received_total[5m]))
 ```
+
 ---
 
-⚙️ Setup & Run
-1. Run API
+## ⚙️ Setup & Run
+
+### 1. Run API
+
+```bash
 cd src/MetricsDemoApi
 dotnet restore
 dotnet run
+```
 
 Application runs on:
 
+```text
 http://localhost:5204
-
-2. Run Prometheus
-prometheus.exe --config.file=prometheus.yml
-
-Prometheus UI:
-
-http://localhost:9090
-
-3. Run Grafana
-http://localhost:3000
-
-Add Prometheus data source:
-
-http://localhost:9090
+```
 
 ---
 
-🔄 Generate Sample Traffic
+### 2. Run Prometheus
 
-PowerShell:
+```bash
+prometheus.exe --config.file=prometheus.yml
+```
 
+Prometheus UI:
+
+```text
+http://localhost:9090
+```
+
+---
+
+### 3. Run Grafana
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+Add Prometheus data source:
+
+```text
+http://localhost:9090
+```
+
+---
+
+## 🔄 Generate Sample Traffic
+
+```powershell
 Invoke-WebRequest http://localhost:5204/
 Invoke-WebRequest http://localhost:5204/api/Order/1
 Invoke-WebRequest -Method Post http://localhost:5204/orders
 Invoke-WebRequest -Method Post http://localhost:5204/orders/fail
+```
 
-📸 Screenshots
-Grafana Dashboard
+---
 
-Prometheus Targets
+## 📸 Screenshots
 
-Metrics Endpoint
+### Grafana Dashboard
+![Grafana Dashboard](docs/screenshots/grafana-dashboard.png)
 
-Health Check
+### Prometheus Targets
+![Prometheus Targets](docs/screenshots/prometheus-targets.png)
 
-Prometheus Query
+### Metrics Endpoint
+![Metrics Endpoint](docs/screenshots/metrics-endpoint.png)
 
-🎯 What This Demonstrates
-Real-world observability in .NET applications
-Metrics collection using Prometheus
-Dashboard visualization using Grafana
-Monitoring request rate, latency, and failures
-Custom business metrics integration
-💡 Interview Talking Points
-Difference between /metrics and /health
-Prometheus pull-based model
-Rate vs total metrics
-Latency calculation using histogram
-Error rate derivation
-Scaling observability in cloud environments (AWS ECS/EKS)
-🚀 Future Enhancements
-Structured logging with Serilog
-ELK stack integration
-Distributed tracing with OpenTelemetry
-AWS deployment (EC2/ECS)
-Grafana alerting setup
-⭐ Summary
+### Health Check
+![Health Endpoint](docs/screenshots/app-health-check.png)
+
+### Prometheus Query
+![Prometheus Query](docs/screenshots/prometheus-query.png)
+
+---
+
+## 🎯 What This Demonstrates
+
+- Real-world observability in .NET applications
+- Metrics collection using Prometheus
+- Dashboard visualization using Grafana
+- Monitoring request rate, latency, and failures
+- Custom business metrics integration
+
+---
+
+## 💡 Interview Talking Points
+
+- Difference between `/metrics` and `/health`
+- Prometheus pull-based model
+- Rate vs total metrics
+- Latency calculation using histogram
+- Error rate derivation
+- Scaling observability in cloud environments (AWS ECS/EKS)
+
+---
+
+## 🚀 Future Enhancements
+
+- Structured logging with Serilog
+- ELK stack integration
+- Distributed tracing with OpenTelemetry
+- AWS deployment (EC2/ECS)
+- Grafana alerting setup
+
+---
+
+## ⭐ Summary
 
 This project demonstrates a production-style observability pipeline using .NET, Prometheus, and Grafana — ideal for backend, cloud, and system design discussions.
